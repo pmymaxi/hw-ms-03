@@ -1,0 +1,37 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+
+  - job_name: "hw-security"
+    metrics_path: /security/metrics
+    static_configs:
+      - targets:
+          - "kong:8000"
+        labels:
+          service: "hw-security"
+
+  - job_name: "hw-uploader"
+    metrics_path: /uploader/metrics
+    static_configs:
+      - targets:
+          - "kong:8000"
+        labels:
+          service: "hw-uploader"
+
+  - job_name: "hw-storage"
+    metrics_path: /storage/metrics/cluster
+    static_configs:
+      - targets:
+          - "kong:8000"
+        labels:
+          service: "hw-storage"
+
+  - job_name: kong
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - kong:8001
+        labels:
+          service: "kong-metrics"

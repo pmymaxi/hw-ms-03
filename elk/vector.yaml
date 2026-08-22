@@ -1,0 +1,56 @@
+sources:
+  docker_logs:
+    type: docker_logs
+
+transforms:
+  filter_services:
+    type: filter
+    inputs:
+      - docker_logs
+
+    condition: |
+      .label."com.docker.compose.service" == "hw-security" ||
+      .label."com.docker.compose.service" == "hw-storage" ||
+      .label."com.docker.compose.service" == "hw-uploader"
+
+  prepare_logs:
+    type: remap
+    inputs:
+      - filter_services
+
+    source: |
+      .service = string!(.label."com.docker.compose.service")
+      .project = string!(.label."com.docker.compose.project")
+      .container = string!(.container_name)
+
+      if exists(.message) {
+        .message = string!(.message)
+      }
+
+      ."@timestamp" = .timestamp
+
+      del(.timestamp)
+      del(.label)
+
+sinks:
+  elasticsearch:
+    type: elasticsearch
+    inputs:
+      - prepare_logs
+
+    endpoints:
+      - "https://master-01:9200"
+
+    mode: bulk
+    api_version: auto
+
+    auth:
+      strategy: basic
+      user: "elastic"
+      password: "1q2w3e4"
+
+    tls:
+      ca_file: "/etc/vector/certs/ca/ca.crt"
+
+    bulk:
+      index: "docker-logs-%Y.%m.%d"

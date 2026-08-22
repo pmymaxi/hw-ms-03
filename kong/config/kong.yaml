@@ -1,0 +1,85 @@
+# a very minimal declarative config file
+_format_version: "2.1"
+_transform: true
+
+services:
+
+  - name: hw-security-v1
+    host: hw-security
+    port: 3000
+    protocol: http
+    path: /v1
+    routes:
+      - name: token
+        paths:
+          - /token
+        methods:
+          - POST
+        strip_path: false
+        
+      - name: token-validation
+        paths:
+          - /token/validation
+        methods:
+          - GET
+        strip_path: false
+
+
+  - name: hw-uploader-v1
+    host: hw-uploader
+    port: 3000
+    protocol: http
+    path: /v1
+    routes:
+      - name: upload
+        paths:
+          - /upload
+        methods:
+          - POST
+        strip_path: false
+
+      - name: images
+        paths:
+          - /images
+        methods:
+          - GET
+        strip_path: false
+
+  - name: hw-storage-root
+    host: hw-storage
+    port: 9000
+    protocol: http
+    path: /minio/v2
+    routes:
+      - name: hw-storage-metrics-cluster
+        paths:
+          - /storage
+        methods:
+          - GET
+        strip_path: true
+    
+  - name: hw-security-root
+    host: hw-security
+    port: 3000
+    protocol: http
+    path: /
+    routes:
+      - name: hw-security-metrics
+        paths:
+          - /security
+        methods:
+          - GET
+        strip_path: true
+  
+  - name: hw-uploader-root
+    host: hw-uploader
+    port: 3000
+    protocol: http
+    path: /
+    routes:
+      - name: hw-uploader-metrics
+        paths:
+          - /uploader
+        methods:
+          - GET
+        strip_path: true
