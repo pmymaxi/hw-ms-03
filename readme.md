@@ -166,7 +166,7 @@ Prometheus отвечает за сбор и хранение метрик, expo
 ### Prometheus target и PromQL запрос
 <img width="1912" height="1319" alt="4" src="https://github.com/user-attachments/assets/af01cfdc-f6d0-4e97-ae82-6711d0eb4986" />
 
-### Grafana dashboard (Kong request по сервисам и метрика по кодам выполнения сервисо)
+### Grafana dashboard (Kong request по сервисам и метрика по кодам выполнения сервисов)
 <img width="1912" height="721" alt="5" src="https://github.com/user-attachments/assets/d12ebbf0-1c76-40ca-8606-16d0a08448af" />
 
 # Как протестировать микросервис
