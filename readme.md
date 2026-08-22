@@ -169,16 +169,8 @@ Prometheus отвечает за сбор и хранение метрик, expo
 ### Grafana dashboard (Kong request по сервисам и метрика по кодам выполнения сервисов)
 <img width="1912" height="721" alt="5" src="https://github.com/user-attachments/assets/d12ebbf0-1c76-40ca-8606-16d0a08448af" />
 
-# Как протестировать микросервис
 
-### Как запускать
-После написания nginx.conf для запуска выполните команду
-```
-docker-compose up --build
-```
-
-
-### Как тестировать
+## Как тестировать
 
 ## Login
 Получить токен
